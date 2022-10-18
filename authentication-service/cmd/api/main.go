@@ -1,6 +1,8 @@
 package main
 
 import (
+	"authentication-service/data"
+	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
@@ -8,12 +10,15 @@ import (
 
 const WEB_PORT = "80"
 
-type Config struct{}
+type Config struct {
+	DB *sql.DB
+	Models data.Models
+}
 
 func main() {
-	app := Config{}
+	log.Printf("Starting authentication service on port %s\n", WEB_PORT)
 
-	log.Printf("Starting broker service on port %s\n", WEB_PORT)
+	app := Config{}
 
 	srv := &http.Server{
 		Addr: fmt.Sprintf(":%s", WEB_PORT),
